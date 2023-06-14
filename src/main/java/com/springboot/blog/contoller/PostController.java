@@ -1,8 +1,14 @@
 package com.springboot.blog.contoller;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,5 +29,30 @@ public class PostController {
     @PostMapping
     public ResponseEntity<PostDto> createPost(@RequestBody PostDto postDto) {
         return new ResponseEntity<>(postService.createPost(postDto), HttpStatus.CREATED);
+    }
+
+    // get all posts rest api
+    @GetMapping
+    public List<PostDto> getAllPosts() {
+        return postService.getAllPosts();
+    }
+    // get post by id
+
+    @GetMapping("/{id}")
+    public ResponseEntity<PostDto> getPostById(@PathVariable long id) {
+        return ResponseEntity.ok(postService.getPostById(id));
+    }
+
+    // update post by id
+    @PutMapping("/{id}")
+    public ResponseEntity<PostDto> updatePostById(@RequestBody PostDto postDto, @PathVariable long id) {
+        PostDto postResponse = postService.updatePost(postDto, id);
+        return ResponseEntity.ok(postResponse);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deletePost(@PathVariable long id) {
+        postService.deletePostById(id);
+        return new ResponseEntity<>("Post Deleted well", HttpStatus.OK);
     }
 }
