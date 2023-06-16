@@ -11,10 +11,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.springboot.blog.payload.PostDto;
+import com.springboot.blog.payload.PostResponse;
 import com.springboot.blog.service.PostService;
+import com.springboot.blog.utils.AppConstant;
 
 @RestController
 @RequestMapping("/api/posts")
@@ -33,8 +36,13 @@ public class PostController {
 
     // get all posts rest api
     @GetMapping
-    public List<PostDto> getAllPosts() {
-        return postService.getAllPosts();
+    // public List<PostDto> getAllPosts(
+    public PostResponse getAllPosts(
+            @RequestParam(value = "pageNo", defaultValue = AppConstant.DEFAULT_PAGE_NUMBER, required = false) int pageNo,
+            @RequestParam(value = "pageSize", defaultValue = AppConstant.DEFAULT_PAGE_SIZE, required = false) int pageSize,
+            @RequestParam(value = "sortBy", defaultValue = AppConstant.DEFAULT_SORT_BY, required = false) String sortBy,
+            @RequestParam(value = "sortDir", defaultValue = AppConstant.DEFAULT_SORT_DIRECTION, required = false) String sortDir) {
+        return postService.getAllPosts(pageNo, pageSize, sortBy, sortDir);
     }
     // get post by id
 
