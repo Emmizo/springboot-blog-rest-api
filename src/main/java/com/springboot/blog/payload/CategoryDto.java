@@ -5,13 +5,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Setter
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class JWTAuthResponse {
-    
-    private String accessToken;
-    private String tokenType = "Bearer";
-
+public class CategoryDto {
+    private Long id;
+    private String name;
+    private String description;
 }

@@ -1,4 +1,6 @@
-package com.springboot.blog.contoller;
+package com.springboot.blog.controller;
+
+import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -66,5 +68,12 @@ public class PostController {
     public ResponseEntity<String> deletePost(@PathVariable long id) {
         postService.deletePostById(id);
         return new ResponseEntity<>("Post Deleted well", HttpStatus.OK);
+    }
+
+    //build api by get post with category
+@GetMapping("/category/{id}")
+    public ResponseEntity<List<PostDto>>getPostByCategory(@PathVariable("id") Long categoryId){
+        List<PostDto> postDtos = postService.getPostsByCategory(categoryId);
+        return ResponseEntity.ok(postDtos);
     }
 }
