@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.springboot.blog.payload.CategoryDto;
 import com.springboot.blog.service.CategoryService;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+
 @RestController
 @RequestMapping("/api/categories")
 public class CategoryController {
@@ -28,6 +30,9 @@ public class CategoryController {
     }
 
     // Build add Category REST
+    @SecurityRequirement(
+    name = "Bear Authentication"
+    )
     @PostMapping("/addCategory")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<CategoryDto> addCategory(@RequestBody CategoryDto categoryDto) {
@@ -49,6 +54,9 @@ public class CategoryController {
     }
 
     // build update REST API
+    @SecurityRequirement(
+    name = "Bear Authentication"
+    )
     @PutMapping("/{id}/updateCategory")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<CategoryDto> updateCategory(@PathVariable("id") Long categoryId,
@@ -57,6 +65,9 @@ public class CategoryController {
         return ResponseEntity.ok(updatedCategory);
     }
 //build delete API
+@SecurityRequirement(
+    name = "Bear Authentication"
+    )
 @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}/deleteCategory")
     public ResponseEntity<String> deleteCategory(@PathVariable long id) {

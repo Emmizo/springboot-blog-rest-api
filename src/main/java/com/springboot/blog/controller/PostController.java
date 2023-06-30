@@ -20,6 +20,7 @@ import com.springboot.blog.payload.PostResponse;
 import com.springboot.blog.service.PostService;
 import com.springboot.blog.utils.AppConstant;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 
 @RestController
@@ -32,6 +33,9 @@ public class PostController {
     }
 
     // create blog post
+    @SecurityRequirement(
+    name = "Bear Authentication"
+    )
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public ResponseEntity<PostDto> createPost(@Valid @RequestBody PostDto postDto) {
@@ -56,13 +60,18 @@ public class PostController {
     }
 
     // update post by id
+    @SecurityRequirement(
+    name = "Bear Authentication"
+    )
     @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<PostDto> updatePostById(@Valid @RequestBody PostDto postDto, @PathVariable long id) {
         PostDto postResponse = postService.updatePost(postDto, id);
         return ResponseEntity.ok(postResponse);
     }
-
+@SecurityRequirement(
+    name = "Bear Authentication"
+    )
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deletePost(@PathVariable long id) {
