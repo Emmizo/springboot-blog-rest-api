@@ -16,10 +16,14 @@ import org.springframework.web.bind.annotation.RestController;
 import com.springboot.blog.payload.CommentDto;
 import com.springboot.blog.service.CommentService;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/")
+@Tag(
+    name= "CRUD REST APIs for Comment resource"
+)
 public class CommentController {
     private CommentService commentService;
 

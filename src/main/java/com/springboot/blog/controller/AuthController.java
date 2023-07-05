@@ -12,8 +12,13 @@ import com.springboot.blog.payload.LoginDto;
 import com.springboot.blog.payload.RegisterDto;
 import com.springboot.blog.service.AuthService;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 @RequestMapping("api/auth")
+@Tag(
+    name= "CRUD REST APIs for Authentication resource"
+)
 public class AuthController {
     private AuthService authService;
 

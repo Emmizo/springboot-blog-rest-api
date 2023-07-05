@@ -20,11 +20,17 @@ import com.springboot.blog.payload.PostResponse;
 import com.springboot.blog.service.PostService;
 import com.springboot.blog.utils.AppConstant;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/posts")
+@Tag(
+    name= "CRUD REST APIs for post resource"
+)
 public class PostController {
     private PostService postService;
 
@@ -33,6 +39,14 @@ public class PostController {
     }
 
     // create blog post
+    @Operation(
+        summary= "Create Post REST API",
+        description = "Create Post REST API is used to save post into database"
+    )
+    @ApiResponse(
+        responseCode = "201",
+        description = "Http Status 201 CREATED"
+    )
     @SecurityRequirement(
     name = "Bear Authentication"
     )
@@ -43,6 +57,14 @@ public class PostController {
     }
 
     // get all posts rest api
+    @Operation(
+        summary= "get all Post REST API",
+        description = "get all Post REST API is used to get post into database with pagination, "
+    )
+    @ApiResponse(
+        responseCode = "200",
+        description = "Http Status 200 OK"
+    )
     @GetMapping
     // public List<PostDto> getAllPosts(
     public PostResponse getAllPosts(
@@ -53,13 +75,28 @@ public class PostController {
         return postService.getAllPosts(pageNo, pageSize, sortBy, sortDir);
     }
     // get post by id
-
+@Operation(
+        summary= "get Post by Id REST API",
+        description = "Get Post REST API is used to get post into database based on id"
+    )
+    @ApiResponse(
+        responseCode = "200",
+        description = "Http Status 200 OK"
+    )
     @GetMapping("/{id}")
     public ResponseEntity<PostDto> getPostById(@PathVariable(name = "id") long id) {
         return ResponseEntity.ok(postService.getPostById(id));
     }
 
     // update post by id
+    @Operation(
+        summary= "UPDATE Post REST API",
+        description = "Update Post REST API is used to update post into database"
+    )
+    @ApiResponse(
+        responseCode = "200",
+        description = "Http Status 200 OK"
+    )
     @SecurityRequirement(
     name = "Bear Authentication"
     )
@@ -69,6 +106,15 @@ public class PostController {
         PostDto postResponse = postService.updatePost(postDto, id);
         return ResponseEntity.ok(postResponse);
     }
+
+    @Operation(
+        summary= "Delete Post REST API",
+        description = "Delete Post REST API is used to delete post into database  "
+    )
+    @ApiResponse(
+        responseCode = "200",
+        description = "Http Status 200 OK"
+    )
 @SecurityRequirement(
     name = "Bear Authentication"
     )

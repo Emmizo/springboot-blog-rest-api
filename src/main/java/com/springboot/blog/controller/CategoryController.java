@@ -18,9 +18,13 @@ import com.springboot.blog.payload.CategoryDto;
 import com.springboot.blog.service.CategoryService;
 
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping("/api/categories")
+@Tag(
+    name= "CRUD REST APIs for Category resource"
+)
 public class CategoryController {
 
     private CategoryService categoryService;
