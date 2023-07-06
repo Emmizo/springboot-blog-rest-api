@@ -9,10 +9,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data
-@Schema(
-    description =" PostDto Model information"
-)
-public class PostDto {
+public class PostDtoV2 {
     private long id;
 @Schema(
     description = "Blog post Title"
@@ -30,9 +27,11 @@ public class PostDto {
     @NotEmpty
     private String content;
     private Set<CommentDto> comments;
-    
-    @Schema(
-        description = "Blog Post category Id"
-    )
-    private Long categoryId;
+    // @Schema(
+    //     description = "Blog Post category Id"
+    // )
+    // private Long categoryId;
+    private List<String> tags;
+
+
 }

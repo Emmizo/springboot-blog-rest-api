@@ -15,7 +15,7 @@ import com.springboot.blog.service.AuthService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
-@RequestMapping("api/auth")
+@RequestMapping("api/v1/auth")
 @Tag(
     name= "CRUD REST APIs for Authentication resource"
 )
